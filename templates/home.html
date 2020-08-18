@@ -1,0 +1,618 @@
+{% load static %}
+<!doctype html>
+<html>
+    <head>
+
+        <meta charset="UTF-utf-8">
+        <title> HypeMovies </title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="shortcut icon" type="image/png" href="../static/images/trans-logo.png">
+    </head>
+    <body>
+        <div>
+          <nav class="navbar navbar-expand-sm   fixed-top">
+
+            <a class="navbar-brand" href="">
+              <img src="{% static 'images/trans-logo.png' %}" alt="logo" style="width:40px;">
+            </a>
+            <a class="navbar-brand" href="">
+              <span class="red">Hy</span><span class="orange">pe</sapn><span class="red">Mov</span><span class="orange">ies</span>
+            </a>
+            
+            <form class="form-inline" action="./searchmovies" method = "POST">
+              {% csrf_token %}
+              <input class="form-control mr-sm-2 center" name = "search_movies" type="text" placeholder="Search movies..." style="align:center;">
+              <button class="btn search" type="submit">Search</button>
+            </form>
+            <div class="dropdown">
+                <div class="profile">
+                    {% if request.session.uname %}
+                         {{ request.session.uname|capfirst|make_list|first }}
+                    {% else %}
+                         ?
+                    {% endif %}
+                 </div>
+                <div class="dropbtn"></div>
+                <div class="dropdown-content">
+                    {% if request.session.uname %}
+                        <a href="./profile">View Profile</a>
+                        <a href="#">Paid Membership</a>
+                        <a href="./logout">Log Out</a>
+                    {% else %}
+                        <a href="./signin">SignIn</a>
+                        <a href="./signup">SignUp</a>
+                    {% endif %}
+                </div>
+            </div>
+
+          </nav>
+           <!--<div class="logonav nav">
+                <img src="{% static 'images/trans-logo.png' %}"><span class="ltext">Hype</span>
+                <span class="htext">Movies</span>
+           </div>
+
+
+            <div class="dropdown">
+                <div class="profile">
+                    {% if request.session.uname %}
+                         {{ request.session.uname|capfirst|make_list|first }}
+                    {% else %}
+                         ?
+                    {% endif %}
+                 </div>
+                <div class="dropbtn"></div>
+                <div class="dropdown-content">
+                    {% if request.session.uname %}
+                        <a href="./profile">View Profile</a>
+                        <a href="#">Paid Membership</a>
+                        <a href="./logout">Log Out</a>
+                    {% else %}
+                        <a href="./signin">SignIn</a>
+                        <a href="./signup">SignUp</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div><br/>
+        {% if messages %}
+            {% for error in messages %}
+            <p>{{ error }}</p><br>
+            {% endfor %}
+        {% endif %}
+        <div class="search">
+            <div class="icon">
+                <i class="fa fa-search"></i>
+            </div>
+            <form action="" method="POST">
+                {% csrf_token %}
+                <input type="text" name="searchbox" class="searchbox">
+                <input type="submit" value="Search" class="horiz">
+            </form>
+        </div>-->
+        <br/><br/><br/><br/><br/>
+
+        {% if messages %}
+        {% for error in messages %}
+          <p style="color: yellow; text-align: center; ">{{ error }}</p><br>
+          {% endfor %}
+        {% endif %}
+
+
+        <div class="con-head">
+          <h2> Action Movies </h2>
+        </div><br/>
+
+        <div class="row">
+          <div class="col-sm-3">
+            <div class="card" >
+
+              <img class="card-img" src="https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_.jpg" alt="Movie Poster">
+              <div class="card-body">
+                <h4 class="card-title">{{action_title.0}}</h4>
+                <p class="card-text">{{action_year.0}}</p>
+                <button type="button" class = "watch">
+                    <a href="./watch?movieid={{action_id.0}}" class="btn  streached-link">watch</a>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="card" >
+              
+                <img class="card-img" src={{action_url.1}} alt="Movie Poster">
+              
+              <div class="card-body">
+                <h4 class = "card-title">{{action_title.1}} </h4>
+                <p class="card-text">{{action_year.1}}</p>
+                <button type="button" class = "watch">
+                    <a href="./watch?movieid={{action_id.1}}" class="btn  streached-link">watch</a>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="card" >
+              
+                <img class="card-img" src="https://m.media-amazon.com/images/I/51Aqk8V+ZlL._AC_SS350_.jpg" alt="Movie Poster">
+              
+              <div class="card-body">
+                <h4 class = "card-title">{{action_title.2}}</h4>
+                <p class="card-text">{{action_year.2}}</p>
+                <button type="button" class = "watch">
+                    <a href="./watch?movieid={{action_id.2}}" class="btn  streached-link">watch</a>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="card" >
+              
+                <img class="card-img" src={{action_url.3}}  alt="Movie Poster">
+              
+              <div class="card-body">
+                <h4 class = "card-title"> {{action_title.3}} </h4>
+                <p class="card-text">{{action_year.3}}</p>
+                <button type="button" class = "watch">
+                    <a href="./watch?movieid={{action_id.3}}" class="btn  streached-link">watch</a>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div><br/><br/>
+        <div class="row">
+          <div class="col-sm-3">
+            <div class="card" >
+              
+                <img class="card-img" src={{action_url.4}} alt="Movie Poster">
+              
+              <div class="card-body">
+                <h4 class = "card-title"> {{action_title.4}}  </h4>
+                <p class="card-text">{{action_year.4}}</p>
+                <button type="button" class = "watch">
+                    <a href="./watch?movieid={{action_id.4}}" class="btn  streached-link">watch</a>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="card" >
+              
+                <img class="card-img" src="{% static 'images/starwars.jpg' %}" alt="Movie Poster">
+              
+              <div class="card-body">
+                <h4 class = "card-title"> {{action_title.5}}  </h4>
+                <p class="card-text">{{action_year.5}}</p>
+                <button type="button" class = "watch">
+                    <a href="./watch?movieid={{action_id.5}}" class="btn  streached-link">watch</a>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="card" >
+              
+                <img class="card-img" src="{% static 'images/theempirestrikesback.jpg' %}" alt="Movie Poster">
+              
+              <div class="card-body">
+                <h4 class = "card-title"> {{action_title.6}}</h4>
+                <p class="card-text">{{action_year.6}}</p>
+                <button type="button" class = "watch">
+                    <a href="./watch?movieid={{action_id.6}}" class="btn  streached-link">watch</a>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="card" >
+              
+                <img class="card-img" src="{% static 'images/scarface.jpg' %}" alt="Movie Poster">
+              
+              <div class="card-body">
+                <h4 class = "card-title"> {{action_title.7}} </h4>
+                <p class="card-text">{{action_year.7}}</p>
+                <button type="button" class = "watch">
+                    <a href="./watch?movieid={{action_id.7}}" class="btn  streached-link">watch</a>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button type="button" class="more">
+          <a  href="./actionmovies">see more</a>
+        </button>
+        <br/><br/><br/>
+
+
+
+        <div class="con-head">
+          <h2> Romantic Movies </h2>
+        </div><br/>
+        <div class="row">
+          <div class="col-sm-3">
+            <div class="card" >
+              
+                <img class="card-img" src={{ romance_url.0 }} alt="Movie Poster">
+              
+              <div class="card-body">
+                <h4 class = "card-title"> {{romance_title.0}} </h4>
+                <p class="card-text">{{romance_year.0}}</p>
+                <button type="button" class = "watch">
+                    <a href="./watch?movieid={{romance_id.0}}" class="btn  streached-link">watch</a>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="card" >
+              
+                <img class="card-img" src="{% static 'images/forrestgump.jpg' %}" alt="Movie Poster">
+              
+              <div class="card-body">
+                <h4 class = "card-title"> {{romance_title.1}} </h4>
+                <p class="card-text">{{romance_year.1}}</p>
+                <button type="button" class = "watch">
+                    <a href="./watch?movieid={{romance_id.1}}" class="btn  streached-link">watch</a>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="card" >
+              
+                <img class="card-img" src="{% static 'images/vertigo.jpg' %}" alt="Movie Poster">
+              
+              <div class="card-body">
+                <h4 class = "card-title"> {{romance_title.2}} </h4>
+                <p class="card-text">{{romance_year.2}}</p>
+                <button type="button" class = "watch">
+                    <a href="./watch?movieid={{romance_id.2}}" class="btn  streached-link">watch</a>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="card" >
+              
+                <img class="card-img" src="{% static 'images/yourname.jpg' %}" alt="Movie Poster">
+              
+              <div class="card-body">
+                <h4 class = "card-title"> {{romance_title.3}} </h4>
+                <p class="card-text">{{romance_year.3}}</p>
+                <button type="button" class = "watch">
+                    <a href="./watch?movieid={{romance_id.3}}" class="btn  streached-link">watch</a>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br/><br/>
+        <div class="row">
+          <div class="col-sm-3">
+            <div class="card" >
+              
+                <img class="card-img" src="{% static 'images/some like it hot.jpg' %}" alt="Movie Poster">
+              
+              <div class="card-body">
+                <h4 class = "card-title"> {{romance_title.4}} </h4>
+                <p class="card-text">{{romance_year.4}}</p>
+                <button type="button" class = "watch">
+                    <a href="./watch?movieid={{romance_id.4}}" class="btn  streached-link">watch</a>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="card" >
+              
+                <img class="card-img" src="{% static 'images/cinemaparadiso.jpg' %}" alt="Movie Poster">
+              
+              <div class="card-body">
+                <h4 class = "card-title">{{romance_title.5}} </h4>
+                <p class="card-text">{{romance_year.5}}</p>
+                <button type="button" class = "watch">
+                    <a href="./watch?movieid={{romance_id.5}}" class="btn  streached-link">watch</a>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="card" >
+              
+              <img class="card-img" src="{% static 'images/paperman.jpg' %}" alt="Movie Poster">
+              
+              <div class="card-body">
+                <h4 class = "card-title"> {{romance_title.6}} </h4>
+                <p class="card-text">{{romance_year.6}}</p>
+                <button type="button" class = "watch">
+                    <a href="./watch?movieid={{romance_id.6}}" class="btn  streached-link">watch</a>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="card" >
+              
+                <img class="card-img" src="{% static 'images/singstreet.jpg' %}" alt="Movie Poster">
+              
+              <div class="card-body">
+                <h4 class = "card-title"> {{romance_title.7}} </h4>
+                <p class="card-text">{{romance_year.7}}</p>
+                <button type="button" class = "watch">
+                    <a href="./watch?movieid={{romance_id.7}}" class="btn  streached-link">watch</a>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button type="button" class="more">
+          <a  href="./romantic">see more</a>
+        </button>
+        <br/><br/><br/>
+
+        <div class="con-head">
+          <h2> Comedy Movies </h2>
+        </div><br/>
+        <div class="row">
+          <div class="col-sm-3">
+            <div class="card" >
+              
+                <img class="card-img" src={{comedy_url.0}} alt="Movie Poster">
+              
+              <div class="card-body">
+                <h4 class = "card-title"> {{comedy_title.0}} </h4>
+                <p class="card-text">{{comedy_year.0}}</p>
+                <button type="button" class = "watch">
+                    <a href="./watch?movieid={{comedy_id.0}}" class="btn  streached-link">watch</a>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="card" >
+              
+                <img class="card-img" src="{% static 'images/forrestgump.jpg' %}" alt="Movie Poster">
+              
+              <div class="card-body">
+                <h4 class = "card-title"> {{comedy_title.1}} </h4>
+                <p class="card-text">{{comedy_year.1}}</p>
+                <button type="button" class = "watch">
+                    <a href="./watch?movieid={{comedy_id.1}}" class="btn  streached-link">watch</a>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="card" >
+              
+                <img class="card-img" src="{% static 'images/backtothefuture.jpg' %}" alt="Movie Poster">
+              
+              <div class="card-body">
+                <h4 class = "card-title"> {{comedy_title.2}} </h4>
+                <p class="card-text">{{comedy_year.2}}</p>
+                <button type="button" class = "watch">
+                    <a href="./watch?movieid={{comedy_id.2}}" class="btn  streached-link">watch</a>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="card" >
+              
+                <img class="card-img" src="{% static 'images/theintouchables.jpg' %}" alt="Movie Poster">
+              
+              <div class="card-body">
+                <h4 class = "card-title"> {{comedy_title.3}} </h4>
+                <p class="card-text">{{comedy_year.3}}</p>
+                <button type="button" class = "watch">
+                    <a href="./watch?movieid={{comedy_id.3}}" class="btn  streached-link">watch</a>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br/><br/>
+        <div class="row">
+          <div class="col-sm-3">
+            <div class="card" >
+              
+                <img class="card-img" src="{% static 'images/thegrandbudapesthotel.jpg' %}" alt="Movie Poster">
+              
+              <div class="card-body">
+                <h4 class = "card-title"> {{comedy_title.4}} </h4>
+                <p class="card-text">{{comedy_year.4}}</p>
+                <button type="button" class = "watch">
+                    <a href="./watch?movieid={{comedy_id.4}}" class="btn  streached-link">watch</a>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="card" >
+              
+                <img class="card-img" src="{% static 'images/life is beautiful.jpg' %}" alt="Movie Poster">
+              
+              <div class="card-body">
+                <h4 class = "card-title"> {{comedy_title.5}} </h4>
+                <p class="card-text">{{comedy_year.5}}</p>
+                <button type="button" class = "watch">
+                    <a href="./watch?movieid={{comedy_id.5}}" class="btn  streached-link">watch</a>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="card" >
+              
+                <img class="card-img" src="{% static 'images/dr stanglove.jpg' %}" alt="Movie Poster">
+              
+              <div class="card-body">
+                <h4 class = "card-title"> {{comedy_title.6}} </h4>
+                <p class="card-text">{{comedy_year.6}}</p>
+                <button type="button" class = "watch">
+                    <a href="./watch?movieid={{comedy_id.6}}" class="btn  streached-link">watch</a>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="card" >
+              
+                <img class="card-img" src="{% static 'images/modern times.jpg' %}" alt="Movie Poster">
+              
+              <div class="card-body">
+                <h4 class = "card-title"> {{comedy_title.7}} </h4>
+                <p class="card-text">{{comedy_year.7}}</p>
+                <button type="button" class = "watch">
+                    <a href="./watch?movieid={{comedy_id.7}}" class="btn  streached-link">watch</a>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button type="button" class="more">
+          <a  href="./comedy">see more</a>
+        </button>
+        <br/><br/><br/>
+
+        <div class="con-head">
+          <h2> Drama Movies </h2>
+        </div><br/>
+
+        <div class="row">
+          <div class="col-sm-3">
+            <div class="card" >
+              
+                <img class="card-img" src={{drama_url.0}} alt="Movie Poster">
+              
+              <div class="card-body">
+                <h4 class = "card-title"> {{drama_title.0}} </h4>
+                <p class="card-text">{{drama_year.0}}</p>
+                <button type="button" class = "watch">
+                    <a href="./watch?movieid={{drama_id.0}}" class="btn  streached-link">watch</a>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="card" >
+              
+                <img class="card-img" src={{drama_url.1}} alt="Movie Poster">
+          
+              <div class="card-body">
+                <h4 class = "card-title"> {{drama_title.1}} </h4>
+                <p class="card-text">{{drama_year.1}}</p>
+                <button type="button" class = "watch">
+                    <a href="./watch?movieid={{drama_id.1}}" class="btn  streached-link">watch</a>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="card" >
+              
+                <img class="card-img" src="{% static 'images/interstellar.jpg' %}" alt="Movie Poster">
+              
+              <div class="card-body">
+                <h4 class = "card-title"> {{drama_title.2}} </h4>
+                <p class="card-text">{{drama_year.2}}</p>
+                <button type="button" class = "watch">
+                    <a href="./watch?movieid={{drama_id.2}}" class="btn  streached-link">watch</a>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="card" >
+              
+                <img class="card-img" src="{% static 'images/fightclub.jpg' %}" alt="Movie Poster">
+              
+              <div class="card-body">
+                <h4 class = "card-title"> {{drama_title.3}} </h4>
+                <p class="card-text">{{drama_year.3}}</p>
+                <button type="button" class = "watch">
+                    <a href="./watch?movieid={{drama_id.3}}" class="btn  streached-link">watch</a>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br/><br/>
+        <div class="row">
+          <div class="col-sm-3">
+            <div class="card" >
+              
+                <img class="card-img" src="{% static 'images/shawsank.jpg' %}" alt="Movie Poster">
+              
+              <div class="card-body">
+                <h4 class = "card-title"> {{drama_title.4}} </h4>
+                <p class="card-text">{{drama_year.4}}</p>
+                <button type="button" class = "watch">
+                    <a href="./watch?movieid={{drama_id.4}}" class="btn  streached-link">watch</a>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="card" >
+              
+                <img class="card-img" src="{% static 'images/forrestgump.jpg' %}" alt="Movie Poster">
+              
+              <div class="card-body">
+                <h4 class = "card-title"> {{drama_title.5}} </h4>
+                <p class="card-text">{{drama_year.5}}</p>
+                <button type="button" class = "watch">
+                    <a href="./watch?movieid={{drama_id.5}}" class="btn  streached-link">watch</a>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="card" >
+             
+                <img class="card-img" src={{drama_url.6}} alt="Movie Poster">
+              
+              <div class="card-body">
+                <h4 class = "card-title"> {{drama_title.6}} </h4>
+                <p class="card-text">{{drama_year.6}}</p>
+                <button type="button" class = "watch">
+                    <a href="./watch?movieid={{drama_id.6}}" class="btn  streached-link">watch</a>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="card" >
+              
+                <img class="card-img" src="{% static 'images/limitationgame.jpg' %}" alt="Movie Poster" >
+              
+              <div class="card-body">
+                <h4 class = "card-title"> {{drama_title.7}} </h4>
+                <p class="card-text">{{drama_year.7}}</p>
+                <button type="button" class = "watch">
+                    <a href="./watch?movieid={{drama_id.7}}" class="btn  streached-link">watch</a>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button type="button" class="more">
+          <a  href="./drama">see more</a>
+        </button>
+        <br/><br/><br/><br/>
+        <nav class="navbar navbar-expand-sm bg-dark navbar-dark justify-content-center ">
+          <footer class="page-footer font-small">
+            <span class="navbar-text">
+              © 2020 Copyright:
+              <a class="navbar-brand" href="">
+                <span class="red">Hy</span><span class="orange">pe</sapn><span class="red">Mov</span><span class="orange">ies</span>
+              </a>
+            </span>
+          </footer>
+        </nav>
+
+    </body>
+</html>

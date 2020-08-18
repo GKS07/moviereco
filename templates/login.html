@@ -1,0 +1,43 @@
+{% load static %}
+<!doctype html>
+<html>
+    <head>
+        <title>Login</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
+        <link rel="shortcut icon" type="image/png" href="../static/images/trans-logo.png">
+    </head>
+    <body>
+
+        <div class="formbox-login">
+          <div class=" bg bg-danger">
+            {% if messages %}
+              {% for error in messages %}
+              <p>{{ error }}</p><br>
+              {% endfor %}
+            {% endif %}
+          </div>
+            <div class="logo">
+                <img src="{% static 'images/trans-logo.png' %}">
+            </div>
+            <h1>SignIn</h1><br/>
+            <form name="signin" action="/check" method="POST">
+                {% csrf_token %}
+                <b>Username:</b><br/>
+                <input type="text" class="field" name="uname"><br/>
+                <b>Password:</b><br/>
+                <input type="password" class="field" name="pwd"><br>
+                <input type="submit" value="SignIn" class="sub">
+            </form>
+
+            <center>
+                <a href="./fgtpwdgo"><div class="link">Forgot Password?</div></a><br>
+                Create new account?<a href="./signup"><div class="link">SignUp</div></a></a>
+            </center>
+
+            <script src="{% static 'js/jquery/jquery-3.5.1.min.js' %}"></script>
+            <script src="{% static 'js/jquery/jquery.validate.min.js' %}"></script>
+            <script type="text/javascript" src="{% static 'js/validatelogin.js' %}"></script>
+        </div><br/>
+
+    </body>
+</html>

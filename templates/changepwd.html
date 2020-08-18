@@ -1,0 +1,29 @@
+{% load static %}
+<!doctype html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+        <link rel="shortcut icon" type="image/png" href="../static/images/trans-logo.png">
+    </head>
+    <body>
+        {% if messages %}
+            {% for error in messages %}
+            <p>{{ error }}</p><br>
+            {% endfor %}
+        {% endif %}
+        <div class="formbox-login">
+            <div class="logo">
+                <img src="{% static 'images/trans-logo.png' %}">
+            </div>
+            <h1>Change Password</h1><br/>
+            <form name="changepwd" action="/changepwd" method="POST">
+                {% csrf_token %}
+                <b>Enter new Password</b><br/><input type="password" class="field" name="pwd"><br>
+                <input type="submit" value="Change Password" class="sub">
+            </form>
+            <script src="{% static 'js/jquery/jquery-3.5.1.min.js' %}"></script>
+            <script src="{% static 'js/jquery/jquery.validate.min.js' %}"></script>
+            <script type="text/javascript" src="{% static 'js/validatelogin.js' %}"></script>
+        </div>
+    </body>
+</html>

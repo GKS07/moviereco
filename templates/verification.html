@@ -1,0 +1,33 @@
+{% load static %}
+<!doctype html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+        <link rel="shortcut icon" type="image/png" href="../static/images/trans-logo.png">
+    </head>
+    <body>
+        {% if messages %}
+            {% for error in messages %}
+            <p>{{ error }}</p><br>
+            {% endfor %}
+        {% endif %}
+        <div class="formbox-login">
+            <div class="logo">
+                <img src="{% static 'images/trans-logo.png' %}">
+            </div>
+            <h1>E-mail Verification</h1><br/>
+            <center><span class="span"> we have sent a OTP on your e-mail.</span></center>
+            <form name="verification" action="/verify" method="POST">
+                {% csrf_token %}
+                <b>Enter OTP</b><br/><input type="text" class="field" name="otp"><br>
+                <input type="submit" value="Verify" class="sub">
+            </form>
+            <script src="{% static 'js/jquery/jquery-3.5.1.min.js' %}"></script>
+            <script src="{% static 'js/jquery/jquery.validate.min.js' %}"></script>
+            <script type="text/javascript" src="{% static 'js/validatelogin.js' %}"></script>
+        </div><br>
+        <center>
+            <a href="./resend"><div class="link">resend OTP?</div></a></a>
+        </center>
+    </body>
+</html>

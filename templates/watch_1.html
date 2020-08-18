@@ -1,0 +1,213 @@
+{% load static %}
+
+<!doctype html>
+<html>
+    <head>
+
+        <meta charset="UTF-utf-8">
+        <title> HypeMovies | Watch </title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/watch_1.css' %}">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="shortcut icon" type="image/png" href="../static/images/trans-logo.png">
+    </head>
+    <body>
+        <div>
+          <nav class="navbar navbar-expand-sm   fixed-top">
+
+            <a class="navbar-brand" href="">
+              <img src="{% static 'images/trans-logo.png' %}" alt="logo" style="width:40px;">
+            </a>
+            <a class="navbar-brand" href="">
+              <span class="red">Hy</span><span class="orange">pe</sapn><span class="red">Mov</span><span class="orange">ies</span>
+            </a>
+            {% if messages %}
+                {% for error in messages %}
+                <p>{{ error }}</p><br>
+                {% endfor %}
+            {% endif %}
+            <form class="form-inline" action="./searchmovies" method = "POST">
+              {% csrf_token %}
+              <input class="form-control mr-sm-2 center" name = "search_movies" type="text" placeholder="Search movies..." style="align:center;">
+              <button class="btn search" type="submit">Search</button>
+            </form>
+            <div class="dropdown">
+                <div class="profile">
+                    {% if request.session.uname %}
+                         {{ request.session.uname|capfirst|make_list|first }}
+                    {% else %}
+                         ?
+                    {% endif %}
+                 </div>
+                <div class="dropbtn"></div>
+                <div class="dropdown-content">
+                    {% if request.session.uname %}
+                        <a href="./profile">View Profile</a>
+                        <a href="#">Paid Membership</a>
+                        <a href="./logout">Log Out</a>
+                    {% else %}
+                        <a href="./signin">SignIn</a>
+                        <a href="./signup">SignUp</a>
+                    {% endif %}
+                </div>
+            </div>
+
+          </nav>
+        </div>
+        <div class="container container-sm|md|lg|xl ">
+          <div class="card">
+            <img class="card-img" src={{url}} alt="Card image">
+            <div class="card-body">
+
+              {% if messages %}
+                  {% for error in messages %}
+                  <p>{{ error }}</p><br>
+                  {% endfor %}
+              {% endif %}
+
+              <h2 class="card-title">{{title}}</h2>
+              <h4 class="cast">{{genre}}</h4>
+              <h4 class="cast">{{year}}</h4>
+              <br/><br/>
+              <p class="card-text">See your Hybrid Recommendation below.</p>
+            </div>
+          </div>
+        </div>
+        <br/><br/><br/><br/><br/>
+
+        <h2 class="reco">Top 9 Recommendation for you:<h2/>
+        <br/><br/><br/>
+        <div class="row">
+      <div class="col-sm|md|lg|xl-4 column" >
+        <div class="recommend_card" >
+          <div class="poster"><img class="poster1" src={{recomender_url.0}} alt="{{recomender_title.0}}"></div>
+          <div class="card-body">
+            <h4 class="title">{{recomender_title.0}}</h4>
+            <p class="genre">{{recomender_year.0}}</p>
+            <button type="button" class = "watch">
+                <a href="./watch?movieid={{recomender_id.0}}" class="btn  streached-link">watch</a>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm|md|lg|xl-4 column">
+        <div class="recommend_card" >
+          <div class="poster"><img class="poster1" src={{recomender_url.1}} alt={{recomender_title.1}}></div>
+          <div class="card-body">
+            <h4 class="title">{{recomender_title.1}}</h4>
+            <p class="genre">{{recomender_year.1}}</p>
+            <button type="button" class = "watch">
+                <a href="./watch?movieid={{recomender_id.1}}" class="btn  streached-link">watch</a>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm|md|lg|xl-4 column">
+        <div class="recommend_card" >
+
+          <div class="poster"><img class="poster1" src={{recomender_url.2}} alt={{recomender_title.2}}></div>
+          <div class="card-body">
+            <h4 class="title">{{recomender_title.2}}</h4>
+            <p class="genre">{{recomender_year.2}}</p>
+            <button type="button" class = "watch">
+                <a href="./watch?movieid={{recomender_id.2}}" class="btn  streached-link">watch</a>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br/><br/><br/>
+    <div class="row">
+      <div class="col-sm|md|lg|xl-4 column" >
+        <div class="recommend_card" >
+          <div class="poster"><img class="poster1" src={{recomender_url.3}} alt={{recomender_title.3}}></div>
+          <div class="card-body">
+            <h4 class="title">{{recomender_title.3}}</h4>
+            <p class="genre">{{recomender_year.3}}</p>
+            <button type="button" class = "watch">
+                <a href="./watch?movieid={{recomender_id.3}}" class="btn  streached-link">watch</a>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm|md|lg|xl-4 column">
+        <div class="recommend_card" >
+          <div class="poster"><img class="poster1" src={{recomender_url.4}} alt={{recomender_title.4}}></div>
+          <div class="card-body">
+            <h4 class="title">{{recomender_title.4}}</h4>
+            <p class="genre">{{recomender_year.4}}</p>
+            <button type="button" class = "watch">
+                <a href="./watch?movieid={{recomender_id.4}}" class="btn  streached-link">watch</a>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm|md|lg|xl-4 column">
+        <div class="recommend_card" >
+          <div class="poster"><img class="poster1" src={{recomender_url.5}} alt={{recomender_title.5}}></div>
+          <div class="card-body">
+            <h4 class="title">{{recomender_title.5}}</h4>
+            <p class="genre">{{recomender_year.5}}</p>
+            <button type="button" class = "watch">
+                <a href="./watch?movieid={{recomender_id.5}}" class="btn  streached-link">watch</a>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br/><br/><br/>
+    <div class="row">
+      <div class="col-sm|md|lg|xl-4 column" >
+        <div class="recommend_card" >
+          <div class="poster"><img class="poster1" src={{recomender_url.6}} alt={{recomender_title.6}}></div>
+          <div class="card-body">
+            <h4 class="title">{{recomender_title.6}}</h4>
+            <p class="genre">{{recomender_year.6}}</p>
+            <button type="button" class = "watch">
+                <a href="./watch?movieid={{recomender_id.6}}" class="btn  streached-link">watch</a>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm|md|lg|xl-4 column">
+        <div class="recommend_card" >
+          <div class="poster"><img class="poster1" src={{recomender_url.7}} alt={{recomender_title.7}}></div>
+          <div class="card-body">
+            <h4 class="title">{{recomender_title.7}}</h4>
+            <p class="genre">{{recomender_year.7}}</p>
+            <button type="button" class = "watch">
+                <a href="./watch?movieid={{recomender_id.7}}" class="btn  streached-link">watch</a>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm|md|lg|xl-4 column">
+        <div class="recommend_card" >
+          <div class="poster"><img class="poster1" src={{recomender_url.8}} alt={{recomender_title.8}}></div>
+          <div class="card-body">
+            <h4 class="title">{{recomender_title.8}}</h4>
+            <p class="genre">{{recomender_year.8}}</p>
+            <button type="button" class = "watch">
+                <a href="./watch?movieid={{recomender_id.8}}" class="btn  streached-link">watch</a>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+        <br/><br/><br/><br/>
+        <nav class="navbar navbar-expand-sm|md|lg|xl bg-dark navbar-dark justify-content-center ">
+          <footer class="page-footer font-small">
+            <span class="navbar-text">
+              © 2020 Copyright:
+              <a class="navbar-brand" href="">
+                <span class="red">Hy</span><span class="orange">pe</sapn><span class="red">Mov</span><span class="orange">ies</span>
+              </a>
+            </span>
+          </footer>
+        </nav>
+
+    </body>
+</html>

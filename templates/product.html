@@ -1,0 +1,58 @@
+{% load static %}
+<!doctype html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    </head>
+    <body>
+        <div class="navbar">
+           <div class="logonav nav">
+                <img src="{% static 'images/trans-logo.png' %}"><span class="ltext">Hype</span>
+                <span class="htext">Movies</span>
+           </div>
+            <div class="dropdown">
+                <div class="profile">
+                    {% if request.session.uname %}
+                         {{ request.session.uname|capfirst|make_list|first }}
+                    {% else %}
+                         ?
+                    {% endif %}
+                 </div>
+               <!-- <div class="dropbtn"></div>-->
+                <div class="dropdown-content">
+                    {% if request.session.uname %}
+                        <a href="./profile">View Profile</a>
+                        <a href="#">Paid Membership</a>
+                        <a href="./logout">Log Out</a>
+                    {% else %}
+                        <a href="./signin">SignIn</a>
+                        <a href="./signup">SignUp</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div><br/>
+        {% if messages %}
+            {% for error in messages %}
+            <p>{{ error }}</p><br>
+            {% endfor %}
+        {% endif %}
+        <div class="search">
+            <div class="icon">
+                <i class="fa fa-search"></i>
+            </div>
+            <form action="" method="POST">
+                {% csrf_token %}
+                <input type="text" name="searchbox" class="searchbox">
+                <input type="submit" value="Search" class="horiz">
+            </form>
+        </div><br/>
+        <div class="pro-con">
+            <div class="content"></div>
+            <div class="content"></div>
+        </div><br/><br/>
+        <div class="copyright">@copyright</div>
+    </body>
+</html>

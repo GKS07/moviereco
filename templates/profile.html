@@ -1,0 +1,69 @@
+{% load static %}
+<!doctype html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    </head>
+    <body>
+        {%  if data %}
+        <div class="profile-big">
+                 {{ request.session.uname|capfirst|make_list|first }}
+         </div>
+         <div class="user">{{ data.uname|capfirst }}</div>
+         <table cellspacing = "5">
+             <tr>
+                 <td class="hd">First Name</td>
+                 <td class = "space">:</td>
+                 <td>{{ data.fname|capfirst }}</td>
+             </tr>
+             <tr>
+                <td class="hd">Last Name</td>
+                <td class = "space">:</td>
+                <td>{{ data.lname|capfirst }}</td>
+            </tr>
+            <tr>
+                <td class="hd">Password</td>
+                <td class = "space">:</td>
+                <td>{{ data.pwd }}</td>
+            </tr>
+            <tr>
+                <td class="hd">E-mail</td>
+                <td class = "space">:</td>
+                <td>{{ data.email }}</td>
+            </tr>
+            <tr>
+                <td class="hd">Mobile No.</td>
+                <td class = "space">:</td>
+                <td>{{ data.mob }}</td>
+            </tr>
+            <tr>
+                <td class="hd">Date of birth</td>
+                <td class = "space">:</td>
+                <td>{{ data.dob }}</td>
+            </tr>
+            <tr>
+                <td class="hd">Your interest</td>
+                <td class = "space">:</td>
+                <td>
+                    {%if data.romantic != 'False' %}
+                        {{ data.romantic }},
+                    {% endif %}
+                    {%if data.comedy != 'False' %}
+                        {{ data.comedy }},
+                    {% endif %}
+                    {%if data.action != 'False' %}
+                        action,
+                    {% endif %}
+                    {%if data.animation != 'False' %}
+                        {{ data.animation }},
+                    {% endif %}
+                    {%if data.horror != 'False' %}
+                        {{ data.horror }},
+                    {% endif %}
+                </td>
+            </tr>
+         </table>
+        <a href="./editprofile"><div class="sub-edit">Edit Profile</div></a>
+        {% endif %}
+    </body>
+</html>
